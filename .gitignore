@@ -1,0 +1,22 @@
+# Build artifacts
+target/
+build/
+*.jar
+*.war
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Arhive
+*.zip
+
+# Secrete si config local
+.env
+*.pem
+*.key
+
+# OS
+.DS_Store
