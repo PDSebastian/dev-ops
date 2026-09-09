@@ -1,0 +1,36 @@
+# Cerere simplă GET către aplicație
+curl http://localhost:8085
+
+# Cerere GET către un endpoint
+curl http://localhost:8085/api/departments
+
+# Afișează statusul HTTP și headerele răspunsului
+curl -i http://localhost:8085/api/departments
+
+# Trimite date JSON printr-o cerere POST
+curl -X POST http://localhost:8085/api/departments \
+  -H "Content-Type: application/json" \
+  -d '{"name":"IT"}'
+
+# Actualizează date printr-o cerere PUT
+curl -X PUT http://localhost:8085/api/departments/1 \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Development"}'
+
+# Șterge resursa cu ID-ul 1
+curl -X DELETE http://localhost:8085/api/departments/1
+
+# Verifică starea unei aplicații Spring Boot cu Actuator
+curl http://localhost:8085/actuator/health
+
+# Afișează doar codul HTTP, de exemplu 200 sau 404
+curl -s -o /dev/null -w "%{http_code}\n" http://localhost:8085
+# Cerere GET cu Bearer Token
+curl -X GET http://localhost:8085/api/departments \
+  -H "Authorization: Bearer TOKENUL_TAU"
+
+# Cerere POST cu Bearer Token și date JSON
+curl -X POST http://localhost:8085/api/departments \
+  -H "Authorization: Bearer TOKENUL_TAU" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"IT"}'

@@ -1,0 +1,101 @@
+deschid EC2
+cand creez serverul in aws --> ubuntu 
+deschid terminalul direct din folder-ul unde se afla cheia
+ ssh -i aws-key.pem ubuntu@3.253.65.96  
+ ubuntu@ip-172-31-19-82:~$ history
+    1  clear
+    2  cd ../
+    3  ks
+    4  cd /
+    5  lls
+    6  ls ( vizualizez toate "folderele")
+    7  clear
+    8  sudo apt update (update dopendente)
+    9  clear
+   10  sudo apt install -y docker.io ()
+   11  clear
+   12  sudo apt install -y docker-compose-v2 (install docker-compose)
+   13  clear
+   14  sudo systemctl enable docker (activez docker )
+   15  sudo systemctl start docker (pornesc toate app din docker)
+   16  docker
+   17  clear
+   18  docker ps
+   19  sudo usermod -aG docker $USER (rulez docker cu drept de admin)
+   20  exit
+   21  history
+ubuntu@ip-172-31-19-82:~$
+# Actualizează lista de pachete
+sudo apt update
+
+# Instalează Docker
+sudo apt install -y docker.io
+
+# Instalează Docker Compose v2
+sudo apt install -y docker-compose-v2
+
+# Configurează Docker să pornească automat la restart
+sudo systemctl enable docker
+
+# Pornește Docker acum
+sudo systemctl start docker
+
+# Afișează comenzile Docker disponibile
+docker
+
+# Afișează containerele care rulează
+docker ps
+
+# Adaugă utilizatorul curent în grupul docker
+# După asta poți folosi Docker fără sudo
+sudo usermod -aG docker $USER
+
+# Închide sesiunea SSH pentru aplicarea grupului
+exit
+
+# Afișează istoricul comenzilor
+history
+
+# Curăță terminalul
+clear
+
+# Listează fișierele și directoarele
+ls
+
+# Mergi în directorul rădăcină
+cd /
+
+# Mergi cu un director mai sus
+cd ../
+
+
+# =========================
+# COMENZI DOCKER UTILE
+# =========================
+
+# Vezi toate containerele, inclusiv cele oprite
+docker ps -a
+
+# Vezi imaginile Docker
+docker images
+
+# Verifică versiunea Docker
+docker --version
+
+# Verifică versiunea Docker Compose
+docker compose version
+
+# Testează dacă Docker funcționează
+docker run --rm hello-world
+
+# Pornește serviciile din compose.yaml / docker-compose.yml
+docker compose up -d
+
+# Oprește serviciile Docker Compose
+docker compose down
+
+# Vezi logurile în timp real
+docker compose logs -f
+
+# Repornește serviciile
+docker compose restartasdas

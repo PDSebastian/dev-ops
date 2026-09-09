@@ -1,0 +1,33 @@
+19  sudo mkdir docker-files
+    # Creează folderul "docker-files" cu drepturi de administrator.
+    # Din această cauză, proprietarul folderului este root.
+
+20  ls
+    # Afișează fișierele și folderele vizibile din directorul curent.
+
+21  ls -ld
+    # Afișează informații despre directorul curent, nu despre conținutul lui.
+    # Pentru docker-files trebuia: ls -ld docker-files
+
+22  ls
+    # Afișează din nou conținutul vizibil al directorului curent.
+
+23  ls -a
+    # Afișează toate fișierele și folderele, inclusiv cele ascunse.
+    # "." este directorul curent, iar ".." este directorul părinte.
+
+24  ls -la
+    # Afișează toate elementele în format detaliat:
+    # permisiuni, proprietar, grup, dimensiune și data modificării.
+
+25  sudo chmod -R 777 docker-files
+    # Oferă tuturor utilizatorilor drepturi complete:
+    # citire (r), scriere (w) și executare/acces (x).
+    # "-R" aplică permisiunile recursiv întregului conținut.
+    # 777 nu este recomandat din motive de securitate.
+
+26  ls -la
+    # Verifică noile permisiuni și afișează conținutul detaliat.
+
+27  history
+    # Afișează istoricul comenzilor executate.

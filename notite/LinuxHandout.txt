@@ -1,0 +1,111 @@
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo systemctl start docker
+sudo systemctl enable docker
+
+
+
+1  sudo apt update
+    # Îi spune calculatorului: "du-te și vezi ce programe noi există".
+    # Nu instalează nimic, doar verifică lista.
+
+2  sudo apt install <nume>
+    # Instalează un program nou, de exemplu un joc sau un editor de text.
+
+3  sudo apt remove <nume>
+    # Șterge (dezinstalează) un program de pe calculator.
+
+4  apt search <cuvant>
+    # Caută printre programe după un cuvânt, ca la un magazin.
+5  sudo adduser <nume>
+    # Creează un cont nou de utilizator, ca un elev nou într-o clasă.
+
+6  sudo groupadd <nume>
+    # Creează un grup nou, ca o "echipă" în care poți pune mai mulți useri.
+
+7  sudo usermod -aG <grup> <user>
+    # Adaugă un user într-o echipă (grup), fără să-l scoată din alte echipe.
+
+8  sudo deluser <nume>
+    # Șterge un cont de utilizator de pe calculator.
+
+9  cat /etc/passwd
+    # Afișează lista cu toți userii care există pe calculator
+10  ls -l
+    # Arată o listă cu fișiere, și lângă fiecare, cine are voie să-l citească/scrie/ruleze.
+
+11  chmod +x <fisier>
+    # Dă unui fișier voie să fie "rulat" ca un program (nu doar citit).
+
+12  chmod 740 <fisier>
+    # Setează cu numere cine are voie ce: primul număr = tu (owner),
+    # al doilea = echipa ta (grup), al treilea = restul lumii (others).
+
+13  sudo chown <user>:<grup> <fisier>
+    # Schimbă cine este "proprietarul" unui fișier.
+14  comanda1 | comanda2
+    # Simbolul | (pipe) trimite rezultatul primei comenzi direct la a doua,
+    # ca o "conductă" prin care trece informația.
+
+15  history | grep sudo
+    # Caută în istoricul comenzilor tale doar liniile care conțin cuvântul "sudo".
+
+16  comanda > fisier.txt
+    # Salvează rezultatul unei comenzi într-un fișier, ștergând ce era înainte acolo.
+
+17  comanda >> fisier.txt
+    # La fel ca mai sus, dar ADAUGĂ la finalul fișierului, fără să șteargă nimic.
+
+18  cat <fisier>
+    # Afișează pe ecran tot ce scrie într-un fișier.
+
+19  less <fisier>
+    # Afișează un fișier mare, pagină cu pagină, ca o carte pe care o răsfoiești
+
+
+
+VIM :
+20  vim <fisier>
+    # Deschide (sau creează) un fișier, ca să scrii în el.
+
+21  i
+    # Te lasă să scrii text în fișier (Insert Mode).
+
+22  Esc
+    # Te oprește din scris, ca să poți da comenzi (Command Mode).
+
+23  :wq
+    # Salvează fișierul și închide Vim.
+
+24  :q!
+    # Închide Vim FĂRĂ să salveze nimic din ce ai scris.
+25  #!/bin/bash
+    # Prima linie a unui script — spune calculatorului cu ce "limbă" să-l citească.
+
+26  chmod +x script.sh
+    # Dă voie scriptului să fie rulat ca un program.
+
+27  ./script.sh
+    # Rulează scriptul (îl pornește).
+
+28  $1, $2
+    # Reprezintă cuvintele pe care i le dai scriptului când îl pornești.
+
+29  for f in *.txt; do echo $f; done
+    # O buclă: repetă o comandă pentru fiecare fișier .txt găsit
+33  ping <adresa>
+    # Verifică dacă un alt calculator/site răspunde, ca un "ecou".
+
+34  ifconfig
+    # Arată adresa de rețea (IP) a calculatorului tău.
+
+35  nslookup <domeniu>
+    # Află adresa IP a unui site, după numele lui.
+
+36  ps aux
+    # Arată toate programele care rulează chiar acum pe calculator.
+37  ssh user@adresa_server
+    # Te conectează la un alt calculator, ca și cum ai sta chiar în fața lui.
+
+38  ssh-keygen
+    # Creează o pereche de "chei" (una secretă, una publică) pentru conectare fără parolă.

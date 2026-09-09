@@ -1,0 +1,6 @@
+Hardening pentru SSH înseamnă:
+
+✓ autentificare cu cheie
+✓ utilizatorul root nu se poate conecta
+✓ autentificarea prin parolă este dezactivată
+✓ portul 22 este permis doar de la IP-ul tău

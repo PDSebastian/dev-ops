@@ -1,0 +1,132 @@
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3310/online_shop_cloud_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: ${DB_DRIVER_CLASS_NAME:com.mysql.cj.jdbc.Driver}
+    hikari:
+      pool-name: ${DB_POOL_NAME:HikariPool}
+      minimum-idle: ${DB_MIN_IDLE:5}
+      maximum-pool-size: ${DB_MAX_POOL_SIZE:10}
+      idle-timeout: ${DB_IDLE_TIMEOUT:60000}
+      connection-timeout: ${DB_CONNECTION_TIMEOUT:30000}
+      max-lifetime: ${DB_MAX_LIFETIME:1800000}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:validate}
+    show-sql: ${JPA_SHOW_SQL:true}
+    properties:
+      hibernate:
+        format_sql: ${JPA_FORMAT_SQL:true}
+    open-in-view: ${JPA_OPEN_IN_VIEW:false}
+  liquibase:
+    enabled: ${LIQUIBASE_ENABLED:true}
+    change-log: ${LIQUIBASE_CHANGE_LOG:classpath:db/changelog/db.changelog-master.yaml}
+
+
+server:
+  port: ${SERVER_PORT:8081}
+
+app:
+  docs:
+    title: ${APP_DOCS_TITLE:Online School Cloud API}
+    version: ${APP_DOCS_VERSION:v1}
+    description: ${APP_DOCS_DESCRIPTION:JWT secured API for managing students, teachers, administrators, courses, books and enrolments.}
+    bearer-scheme-name: ${APP_DOCS_BEARER_SCHEME_NAME:bearerAuth}
+    default-password: ${APP_DOCS_DEFAULT_PASSWORD:password}
+    bootstrap-users:
+      - ${APP_DOCS_BOOTSTRAP_ADMIN:admin@online-school.ro}
+      - ${APP_DOCS_BOOTSTRAP_TEACHER:andrei.ionescu@online-school.ro}
+      - ${APP_DOCS_BOOTSTRAP_STUDENT:ana.marinescu@student.online-school.ro}
+  cors:
+    allowed-origin-patterns:
+      - ${CORS_LOCALHOST_HTTP:http://localhost:*}
+      - ${CORS_LOCALHOST_HTTPS:https://localhost:*}
+      - ${CORS_LOOPBACK_HTTP:http://127.0.0.1:*}
+      - ${CORS_LOOPBACK_HTTPS:https://127.0.0.1:*}
+      - ${CORS_BIND_ALL_HTTP:http://0.0.0.0:*}
+      - ${CORS_BIND_ALL_HTTPS:https://0.0.0.0:*}
+      - ${CORS_IPV6_HTTP:http://[::1]:*}
+      - ${CORS_IPV6_HTTPS:https://[::1]:*}
+      - ${CORS_VERCEL:https://*.vercel.app}
+      - ${CORS_NETLIFY:https://*.netlify.app}
+      - ${CORS_WEB_APP:https://*.web.app}
+      - ${CORS_FIREBASE:https://*.firebaseapp.com}
+      - ${CORS_PAGES_DEV:https://*.pages.dev}
+      - ${CORS_GITHUB_PREVIEW:https://*.githubpreview.dev}
+      - ${CORS_GITPOD:https://*.gitpod.io}
+      - ${CORS_CODESPACES:https://*.codespaces.github.com}
+    allowed-methods:
+      - ${CORS_METHOD_GET:GET}
+      - ${CORS_METHOD_POST:POST}
+      - ${CORS_METHOD_PUT:PUT}
+      - ${CORS_METHOD_PATCH:PATCH}
+      - ${CORS_METHOD_DELETE:DELETE}
+      - ${CORS_METHOD_OPTIONS:OPTIONS}
+    allowed-headers:
+      - ${CORS_HEADER_AUTHORIZATION:Authorization}
+      - ${CORS_HEADER_CONTENT_TYPE:Content-Type}
+      - ${CORS_HEADER_ACCEPT:Accept}
+      - ${CORS_HEADER_ORIGIN:Origin}
+      - ${CORS_HEADER_REQUESTED_WITH:X-Requested-With}
+      - ${CORS_HEADER_CACHE_CONTROL:Cache-Control}
+    exposed-headers:
+      - ${CORS_EXPOSED_AUTHORIZATION:Authorization}
+      - ${CORS_EXPOSED_CONTENT_DISPOSITION:Content-Disposition}
+    allow-credentials: ${CORS_ALLOW_CREDENTIALS:true}
+    max-age: ${CORS_MAX_AGE:3600}
+  security:
+    public-paths:
+      - ${SECURITY_PUBLIC_AUTH_REGISTER:/auth/register}
+      - ${SECURITY_PUBLIC_AUTH_LOGIN:/auth/login}
+      - ${SECURITY_PUBLIC_ERROR:/error}
+      - ${SECURITY_PUBLIC_SWAGGER_UI:/swagger-ui/**}
+      - ${SECURITY_PUBLIC_SWAGGER_HTML:/swagger-ui.html}
+      - ${SECURITY_PUBLIC_API_DOCS:/v3/api-docs/**}
+    password-encoder-strength: ${SECURITY_PASSWORD_ENCODER_STRENGTH:10}
+    resource-rules:
+      - path-pattern: ${SECURITY_STUDENTS_PATH:/students/**}
+        read-authority: ${SECURITY_STUDENTS_READ:student:read}
+        write-authority: ${SECURITY_STUDENTS_WRITE:student:write}
+      - path-pattern: ${SECURITY_TEACHERS_PATH:/teachers/**}
+        read-authority: ${SECURITY_TEACHERS_READ:teacher:read}
+        write-authority: ${SECURITY_TEACHERS_WRITE:teacher:write}
+      - path-pattern: ${SECURITY_ADMINISTRATORS_PATH:/administrators/**}
+        read-authority: ${SECURITY_ADMINISTRATORS_READ:administrator:read}
+        write-authority: ${SECURITY_ADMINISTRATORS_WRITE:administrator:write}
+      - path-pattern: ${SECURITY_COURSES_PATH:/courses/**}
+        read-authority: ${SECURITY_COURSES_READ:course:read}
+        write-authority: ${SECURITY_COURSES_WRITE:course:write}
+      - path-pattern: ${SECURITY_BOOKS_PATH:/books/**}
+        read-authority: ${SECURITY_BOOKS_READ:book:read}
+        write-authority: ${SECURITY_BOOKS_WRITE:book:write}
+      - path-pattern: ${SECURITY_ENROLMENTS_PATH:/enrolments/**}
+        read-authority: ${SECURITY_ENROLMENTS_READ:enrolment:read}
+        write-authority: ${SECURITY_ENROLMENTS_WRITE:enrolment:write}
+      - path-pattern: ${SECURITY_USERS_PATH:/users/**}
+        read-authority: ${SECURITY_USERS_READ:user:read}
+        write-authority: ${SECURITY_USERS_WRITE:user:write}
+      - path-pattern: ${SECURITY_PERMISSIONS_PATH:/permissions/**}
+        read-authority: ${SECURITY_PERMISSIONS_READ:permission:read}
+        write-authority: ${SECURITY_PERMISSIONS_WRITE:permission:write}
+      - path-pattern: ${SECURITY_DASHBOARD_PATH:/dashboard/**}
+        read-authority: ${SECURITY_DASHBOARD_READ:dashboard:read}
+        write-authority: ${SECURITY_DASHBOARD_WRITE:dashboard:write}
+      - path-pattern: ${SECURITY_REPORTS_PATH:/reports/**}
+        read-authority: ${SECURITY_REPORTS_READ:report:read}
+        write-authority: ${SECURITY_REPORTS_WRITE:report:write}
+      - path-pattern: ${SECURITY_SETTINGS_PATH:/settings/**}
+        read-authority: ${SECURITY_SETTINGS_READ:settings:read}
+        write-authority: ${SECURITY_SETTINGS_WRITE:settings:write}
+  jwt:
+    secret: ${JWT_SECRET:b25saW5lLXNjaG9vbC1jbG91ZC1hcGktc3VwZXItc2VjdXJlLWp3dC1zZWNyZXQtbXVzdC1iZS1sb25nLWVub3VnaA==}
+    expiration-seconds: ${JWT_EXPIRATION_SECONDS:86400}
+
+springdoc:
+  api-docs:
+    path: ${SPRINGDOC_API_DOCS_PATH:/v3/api-docs}
+  swagger-ui:
+    path: ${SPRINGDOC_SWAGGER_UI_PATH:/swagger-ui.html}
+    persist-authorization: ${SPRINGDOC_PERSIST_AUTHORIZATION:true}
