@@ -30,5 +30,7 @@
        Pasul 5: completez docker compose cu app
 	   
 	   
+	   ./mvnw clean package -DskipTests
+	   
 	   
 	   

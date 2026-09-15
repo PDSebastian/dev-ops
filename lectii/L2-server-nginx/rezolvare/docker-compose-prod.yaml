@@ -1,0 +1,101 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: mysql-prod-v2
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3330:3306"
+    volumes:
+      - mysql_all_data_v2:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    restart: unless-stopped
+
+  school:
+    image: sebi123q/online-school-cloud-api:1.0
+    container_name: school-prod-v2
+    ports:
+      - "9001:8081"
+    environment:
+      SERVER_PORT: "8081"
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/school_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+  cars:
+    image: sebi123q/car-app-api:1.0
+    container_name: cars-prod-v2
+    ports:
+      - "9002:8082"
+    environment:
+      SERVER_PORT: "8082"
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/cars_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      JWT_SECRET_KEY: "asdasdasdasdasd123344asdasdasdasdasasd12321332sadasXYZ0123456789ABCDEF"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+  sebi-online-shop:
+    image: sebi123q/sebi-online-schop-api:1.0
+    container_name: sebi-online-shop-prod-v2
+    ports:
+      - "9003:8083"
+    environment:
+      SERVER_PORT: "8083"
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/online_shop_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      JWT_SECRET_KEY: "asdasdasdasdasd123344asdasdasdasdasasd12321332sadasXYZ0123456789ABCDEF"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+  boats-users:
+    image: sebi123q/boat-users-api:1.0
+    container_name: boats-users-prod-v2
+    ports:
+      - "9004:8084"
+    environment:
+      SERVER_PORT: "8084"
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/boats_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      JWT_SECRET_KEY: "asdasdasdasdasd123344asdasdasdasdasasd12321332sadasXYZ0123456789ABCDEF"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+  solarsyncbroker:
+    image: sebi123q/solarsyncbroker-app:latest
+    container_name: solarsyncbroker-prod-v2
+    ports:
+      - "9005:8085"
+    environment:
+      SERVER_PORT: "8085"
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/solar_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      JWT_SECRET_KEY: "dev-only-solarsync-secret-key-please-change-in-prod-0123456789ABCDEF"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  mysql_all_data_v2:

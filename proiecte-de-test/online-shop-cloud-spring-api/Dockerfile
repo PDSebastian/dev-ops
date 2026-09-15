@@ -16,6 +16,7 @@ RUN ./mvnw -q dependency:go-offline
 COPY src/ src/
 RUN ./mvnw -q -DskipTests package
 
+
 # ===== runtime stage =====
 FROM --platform=$TARGETPLATFORM eclipse-temurin:21-jre
 
