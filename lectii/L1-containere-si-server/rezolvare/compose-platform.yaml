@@ -17,13 +17,12 @@ services:
     restart: unless-stopped
 
   boats-users:
-    image: sebi123q/boats-users-app:1.0
+    image: sebi123q/boat-users-api:1.0
     container_name: boats-users
     ports:
-      - "8091:8087"
+      - "8091:8086"
     environment:
-      SERVER_PORT: "8087"
-      DB_URL: jdbc:mysql://mysql:3306/boats_users_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+      DB_URL: jdbc:mysql://mysql:3306/online_shop_spring?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
       DB_USERNAME: root
       DB_PASSWORD: root
     depends_on:
@@ -31,68 +30,66 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
-  solarsyncbroker-app:
-    image: sebi123q/solarsyncbroker-app:2.0
-    container_name: solarsyncbroker-app
+  solar-sync-app:
+    image: sebi123q/solarsyncbroker-app:latest
+    container_name: solar_sync_app
     ports:
-      - "8092:8090"
+      - "8082:8081"
     environment:
-      SERVER_PORT: "8090"
-      DB_URL: jdbc:mysql://mysql:3306/solarsync_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/solarsyncbroker_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+
+    
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+  car-app:
+    image: sebi123q/car-app-api:1.0
+    container_name: car-app-api
+    ports:
+      - "8087:8086"
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/cars_app_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
       DB_USERNAME: root
       DB_PASSWORD: root
       JWT_SECRET_KEY: "asdasdasdasdasd123344asdasdasdasdasasd12321332sadasXYZ0123456789ABCDEF"
     depends_on:
       mysql:
         condition: service_healthy
-    restart: unless-stopped   
+    restart: unless-stopped
 
-  sebi-online-shop-app:
-    image: sebi123q/sebi-online-shop-app:1.0
-    container_name: sebi-online-shop-app
+  sebi-onlineshop-app:
+    image: sebi123q/sebi-online-schop-api:1.0
+    container_name: sebi-online-shop-spring-api
     ports:
-      - "8093:8089"
+      - "8085:8084"
     environment:
-      SERVER_PORT: "8089"
-      DB_URL: jdbc:mysql://mysql:3306/online_shop_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+      DB_URL: jdbc:mysql://mysql:3306/online_shop_spring?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
       DB_USERNAME: root
       DB_PASSWORD: root
       JWT_SECRET_KEY: "asdasdasdasdasd123344asdasdasdasdasasd12321332sadasXYZ0123456789ABCDEF"
     depends_on:
       mysql:
         condition: service_healthy
-    restart: unless-stopped  
+    restart: unless-stopped
 
-  school-app:
-     image: sebi123q/school-app-api:0.0.1
-     container_name: school
-     ports:
-       - "8094:8080"
-     environment:
-       SERVER_PORT: "8080"
-       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/school-app_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
-       SPRING_DATASOURCE_USERNAME: root
-       SPRING_DATASOURCE_PASSWORD: root
-       SPRING_JPA_SHOW_SQL: "true"
-     depends_on:
-       mysql:
-         condition: service_healthy
-     restart: unless-stopped
-
-  sebi-school-app:
-    image: sebi123q/sebi-school-app:1.0
-    container_name: sebi-school-app
+  sebionlineschool-app:
+    image:  sebi123q/online-school-cloud-api:1.0
+    container_name: online-school-spring-api
     ports:
-      - "8095:8088"
+      - "8084:8083"
     environment:
-      SERVER_PORT: "8088"
       DB_URL: jdbc:mysql://mysql:3306/sebi_school_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
-      JPA_SHOW_SQL: "true"
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      JWT_SECRET_KEY: "asdasdasdasdasd123344asdasdasdasdasasd12321332sadasXYZ0123456789ABCDEF"
     depends_on:
       mysql:
         condition: service_healthy
-    restart: unless-stopped
-
+    restart: unless-stopped        
 
 volumes:
   mysql_all_data:
