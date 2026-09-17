@@ -1,0 +1,148 @@
+services:
+
+  whoami:
+    image: traefik/whoami:v1.10
+    container_name: demo-whoami
+    ports:
+      - "127.0.0.1:8101:80"
+    restart: unless-stopped
+
+  hello:
+    image: nginxdemos/hello:plain-text
+    container_name: demo-hello
+    ports:
+      - "127.0.0.1:8102:80"
+    restart: unless-stopped
+
+  httpbin:
+    image: mccutchen/go-httpbin:v2.15.0
+    container_name: demo-httpbin
+    ports:
+      - "127.0.0.1:8103:8080"
+    restart: unless-stopped
+
+  adminer:
+    image: adminer:4
+    container_name: demo-adminer
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+    ports:
+      - "127.0.0.1:8104:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: demo-postgres
+    environment:
+      POSTGRES_DB: demo
+      POSTGRES_USER: demo
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U demo -d demo"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    restart: unless-stopped
+
+  mailpit:
+    image: axllent/mailpit:v1.20
+    container_name: demo-mailpit
+    ports:
+      - "127.0.0.1:8105:8025"
+    restart: unless-stopped
+
+  dozzle:
+    image: amir20/dozzle:v8.5.4
+    container_name: demo-dozzle
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "127.0.0.1:8106:8080"
+    restart: unless-stopped
+
+  filebrowser:
+    image: filebrowser/filebrowser:v2.31.2
+    container_name: demo-filebrowser
+    environment:
+      FB_DATABASE: /database/filebrowser.db
+      FB_ROOT: /srv
+      FB_NOAUTH: "true"
+    volumes:
+      - fb_data:/database
+      - fb_files:/srv
+    ports:
+      - "127.0.0.1:8107:80"
+    restart: unless-stopped
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui:v5.17.14
+    container_name: demo-swagger-ui
+    environment:
+      SWAGGER_JSON_URL: https://petstore3.swagger.io/api/v3/openapi.json
+    ports:
+      - "127.0.0.1:8108:8080"
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v2.53.0
+    container_name: demo-prometheus
+    volumes:
+      - prom_data:/prometheus
+    ports:
+      - "127.0.0.1:8109:9090"
+    restart: unless-stopped
+
+  node-exporter:
+    image: prom/node-exporter:v1.8.1
+    container_name: demo-node-exporter
+    ports:
+      - "127.0.0.1:8110:9100"
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana-oss:11.1.0
+    container_name: demo-grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+    volumes:
+      - grafana_data:/var/lib/grafana
+    ports:
+      - "127.0.0.1:8111:3000"
+    restart: unless-stopped
+
+  cyberchef:
+    image: mpepping/cyberchef:latest
+    container_name: demo-cyberchef
+    ports:
+      - "127.0.0.1:8112:8000"
+    restart: unless-stopped
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: demo-uptime-kuma
+    volumes:
+      - kuma_data:/app/data
+    ports:
+      - "127.0.0.1:8113:3001"
+    restart: unless-stopped
+
+  it-tools:
+    image: corentinth/it-tools:latest
+    container_name: demo-it-tools
+    ports:
+      - "127.0.0.1:8114:80"
+    restart: unless-stopped
+
+volumes:
+  pg_data:
+  fb_data:
+  fb_files:
+  prom_data:
+  grafana_data:
+  kuma_data:
