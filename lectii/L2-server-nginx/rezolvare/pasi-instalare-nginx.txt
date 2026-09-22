@@ -76,7 +76,7 @@ PASUL 3 - instalare nginx
     sudo apt install -y nginx
     systemctl status nginx
 
-CRITERIU DE GATA: active (running), iar in browser http://18.232.176.158/
+CRITERIU DE GATA: active (running), iar in browser http://3.88.114.102/
 afiseaza "Welcome to nginx!". Daca browserul se invarte, e portul 80 inchis
 in Security Group, nu nginx.
 

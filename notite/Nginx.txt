@@ -1,0 +1,4 @@
+http://18.232.176.158/boats  automat pe 80
+https:// automat 443
+
+DNS== Domain Name System

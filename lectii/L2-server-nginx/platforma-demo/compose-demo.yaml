@@ -33,22 +33,7 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
-  postgres:
-    image: postgres:16-alpine
-    container_name: demo-postgres
-    environment:
-      POSTGRES_DB: demo
-      POSTGRES_USER: demo
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - pg_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U demo -d demo"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-      start_period: 15s
-    restart: unless-stopped
+
 
   mailpit:
     image: axllent/mailpit:v1.20
@@ -105,16 +90,7 @@ services:
       - "127.0.0.1:8110:9100"
     restart: unless-stopped
 
-  grafana:
-    image: grafana/grafana-oss:11.1.0
-    container_name: demo-grafana
-    environment:
-      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
-    volumes:
-      - grafana_data:/var/lib/grafana
-    ports:
-      - "127.0.0.1:8111:3000"
-    restart: unless-stopped
+
 
   cyberchef:
     image: mpepping/cyberchef:latest
