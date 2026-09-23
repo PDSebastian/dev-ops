@@ -20,7 +20,7 @@ services:
 
 
   onlinescool-app:
-    image: sebi123q/practice-onlinescool-api:v1
+    image: sebi123q/online-scool-cloud-api:v1
     container_name: online-scool-cloud-spring-api
     ports:
       - "8090:8081"

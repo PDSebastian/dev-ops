@@ -1,0 +1,2 @@
+RAM total cerut: ~840 MiB
+RAM liber pe instanță: ~927 MiB

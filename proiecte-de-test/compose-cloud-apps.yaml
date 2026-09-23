@@ -1,0 +1,55 @@
+services:
+
+  mysql:
+    image: mysql:8.4
+    container_name: cloud-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - cloud_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p root"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+  school-cloud:
+    image: bogdandanielioan/online-school-cloud-api:1.0
+    container_name: cloud-school
+    environment:
+      SERVER_PORT: "8081"
+      SERVER_SERVLET_CONTEXT_PATH: /school-cloud
+      DB_URL: jdbc:mysql://mysql:3306/school_cloud_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      JWT_SECRET: "secret1234567890"
+      JAVA_TOOL_OPTIONS: -XX:MaxRAMPercentage=25
+    ports:
+      - "127.0.0.1:8120:8081"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+  shop-cloud:
+    image: bogdandanielioan/online-shop-cloud-api:1.0
+    container_name: cloud-shop
+    environment:
+      SERVER_PORT: "8082"
+      SERVER_SERVLET_CONTEXT_PATH: /shop-cloud
+      DB_URL: jdbc:mysql://mysql:3306/shop_cloud_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      APP_SECURITY_JWT_SECRET: "secret1234567890"
+      JAVA_TOOL_OPTIONS: -XX:MaxRAMPercentage=25
+    ports:
+      - "127.0.0.1:8121:8082"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  cloud_mysql_data:

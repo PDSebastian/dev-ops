@@ -1,0 +1,75 @@
+ubuntu@ip-172-31-22-218:/etc/nginx/sites-available$ history
+    1  sudo apt update
+    2  sudo usermod -aG docker $USER
+    3  sudo docker.io
+    4  sudo apt install -y docker.io
+    5  sudo apt install -y docker-compose-v2
+    6  sudo systemctl enable docker
+    7  sudo start enable docker
+    8  sudo systemctl start docker
+    9  docker ps
+   10  sudo usermod -aG docker $USER
+   11  docker compose -f compose-test.yaml up -d
+   12  sudo docker compose -f compose-test.yaml up -d
+   13  nano compose-test.yaml
+   14  sudo docker compose -f compose-test.yaml up -d
+   15  vim compose-test.yaml
+   16  vim cloud-apps.conf
+   17  sudo docker compose -f compose-test.yaml up -d
+   18  docker ps
+   19  sudo docker ps
+   20  sudo docker compose -f compose-test.yaml ps
+   21  sudo docker compose -f compose-test.yaml logs
+   22  clear
+   23  docker ps
+   24  sudo docker ps
+   25  ls
+   26  /etc/nginx/sites-available/
+   27  vim cloud-apps.comf
+   28  ls
+   29  nginx -v
+   30  sudo apt install nginx
+   31  c;ear
+   32  clear
+   33  systemctl status nginx
+   34  cd /etc/nginx/sites-available/
+   35  ls
+   36  cd /
+   37  ;s
+   38  ls
+   39  cd home
+   40  ls
+   41  cd ubuntu
+   42  ls
+   43  pwd
+   44  sudo cp cloud-apps.conf /etc/nginx/sites-available
+   45  cd /etc/nginx/sites-available
+   46  ls
+   47  sudo ln -sf cloud-apps /etc/nginx/sites-enabled
+   48  cd .//
+   49  cd ../
+   50  ;s
+   51  ls
+   52  cd sites-enabled
+   53  ls
+   54  rm default
+   55  sudo rm default
+   56  ls
+   57  clear
+   58  sudo systemctl relead nginx
+   59  sudo systemctl reload nginx
+   60  sudo nginx -t
+   61  ls
+   62  cd ../
+   63  ls /sites-available
+   64  ls
+   65  cd sites-available
+   66  ls
+   67  sudo rm /etc/nginx/sites-enabled/cloud-apps
+   68  sudo ln -s /etc/nginx/sites-available/cloud-apps.conf /etc/nginx/sites-enabled/cloud-apps.conf
+   69  sudo nginx -t
+   70  sudo systemctl restart nginx
+   71  clear
+   72  sudo systemctl status nginx
+   73  history
+ubuntu@ip-172-31-22-218:/etc/nginx/sites-available$
