@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <title>Scalare</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 40px; max-width: 760px; }
+    h1 { color: #276749; }
+    button { padding: 10px 16px; font-size: 15px; cursor: pointer; }
+    pre { background: #f4f4f5; padding: 14px; border-radius: 6px; white-space: pre-wrap; }
+    td { padding: 4px 18px 4px 0; font-family: ui-monospace, monospace; }
+  </style>
+</head>
+<body>
+  <h1>Cine raspunde?</h1>
+  <p>Butonul trimite 12 cereri catre /api/ si numara ce replica a raspuns.</p>
+  <button>trimite 12 cereri</button>
+  <table id="scor"></table>
+  <pre id="raspuns">niciun rezultat inca</pre>
+  <script>
+    document.querySelector("button").addEventListener("click", function () {
+      var box = document.getElementById("raspuns");
+      var tab = document.getElementById("scor");
+      var cereri = [];
+      for (var i = 0; i < 12; i++) {
+        cereri.push(
+          fetch("/api/?nr=" + i)
+            .then(function (r) { return r.ok ? r.text() : "EROARE " + r.status; })
+            .catch(function () { return "EROARE de retea"; })
+        );
+      }
+      box.textContent = "trimit 12 cereri ...";
+      tab.innerHTML = "";
+      Promise.all(cereri).then(function (raspunsuri) {
+        var scor = {};
+        raspunsuri.forEach(function (t) {
+          var m = /Name:\s*(\S+)/.exec(t);
+          var cine = m ? m[1] : t.split("\n")[0];
+          scor[cine] = (scor[cine] || 0) + 1;
+        });
+        Object.keys(scor).sort().forEach(function (k) {
+          var tr = tab.insertRow();
+          tr.insertCell().textContent = k;
+          tr.insertCell().textContent = scor[k] + " cereri";
+        });
+        box.textContent = raspunsuri[0];
+      });
+    });
+  </script>
+</body>
+</html>
