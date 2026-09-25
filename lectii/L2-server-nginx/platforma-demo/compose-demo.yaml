@@ -21,35 +21,6 @@ services:
       - "127.0.0.1:8103:8080"
     restart: unless-stopped
 
-  adminer:
-    image: adminer:4
-    container_name: demo-adminer
-    environment:
-      ADMINER_DEFAULT_SERVER: postgres
-    ports:
-      - "127.0.0.1:8104:8080"
-    depends_on:
-      postgres:
-        condition: service_healthy
-    restart: unless-stopped
-
-  postgres:
-    image: postgres:16-alpine
-    container_name: demo-postgres
-    environment:
-      POSTGRES_DB: demo
-      POSTGRES_USER: demo
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - pg_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U demo -d demo"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-      start_period: 15s
-    restart: unless-stopped
-
   mailpit:
     image: axllent/mailpit:v1.20
     container_name: demo-mailpit
@@ -140,7 +111,6 @@ services:
     restart: unless-stopped
 
 volumes:
-  pg_data:
   fb_data:
   fb_files:
   prom_data:
