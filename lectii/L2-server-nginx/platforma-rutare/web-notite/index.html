@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notite</title>
+  <link rel="stylesheet" href="style.css">
+  <style>:root { --tema: #7c3aed; }</style>
+</head>
+<body>
+  <header>
+    <h1>Notite in cloud</h1>
+    <p>API-ul asculta pe /api/v1, nginx il aduce la /api/notite</p>
+  </header>
+  <nav>
+    <a href="../scoala/">Scoala</a>
+    <a class="activ" href="../notite/">Notite</a>
+    <a href="../masini/">Masini</a>
+  </nav>
+  <main>
+    <div id="stare" class="stare rau">neconectat</div>
+    <section>
+      <h2>Cont</h2>
+      <input id="email" value="elev@notite.ro" size="22">
+      <input id="parola" value="Parola123!" size="14">
+      <button id="btn-cont">Creeaza cont</button>
+      <button id="btn-login" class="sec">Autentificare</button>
+    </section>
+    <section>
+      <h2>Notita noua</h2>
+      <input id="titlu" placeholder="titlu" size="26">
+      <button id="btn-adauga" disabled>Adauga</button>
+    </section>
+    <section>
+      <h2>Notitele mele</h2>
+      <button id="btn-lista" disabled>Incarca</button>
+      <div id="lista" class="gol">nimic incarcat</div>
+    </section>
+    <section>
+      <h2>Raspuns brut</h2>
+      <pre id="brut">nimic inca</pre>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

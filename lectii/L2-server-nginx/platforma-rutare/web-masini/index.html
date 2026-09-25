@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Masini</title>
+  <link rel="stylesheet" href="style.css">
+  <style>:root { --tema: #059669; }</style>
+</head>
+<body>
+  <header>
+    <h1>Sursa de masini</h1>
+    <p>singurul API fara autentificare; rutele lui stau sub /api/external</p>
+  </header>
+  <nav>
+    <a href="../scoala/">Scoala</a>
+    <a href="../notite/">Notite</a>
+    <a class="activ" href="../masini/">Masini</a>
+  </nav>
+  <main>
+    <div id="stare" class="stare rau">nicio cerere trimisa</div>
+    <section>
+      <h2>Anunturi</h2>
+      <button id="btn-lista">Incarca masinile</button>
+      <button id="btn-regen" class="sec">Regenereaza sursa</button>
+      <div id="lista" class="gol">nimic incarcat</div>
+    </section>
+    <section>
+      <h2>Raspuns brut</h2>
+      <pre id="brut">nimic inca</pre>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scoala</title>
+  <link rel="stylesheet" href="style.css">
+  <style>:root { --tema: #2563eb; }</style>
+</head>
+<body>
+  <header>
+    <h1>Scoala online</h1>
+    <p>frontend separat, API separat, acelasi nginx</p>
+  </header>
+  <nav>
+    <a class="activ" href="../scoala/">Scoala</a>
+    <a href="../notite/">Notite</a>
+    <a href="../masini/">Masini</a>
+  </nav>
+  <main>
+    <div id="stare" class="stare rau">neconectat</div>
+    <section>
+      <h2>Cont</h2>
+      <input id="email" value="elev@scoala.ro" size="22">
+      <input id="parola" value="parola123" size="14">
+      <button id="btn-cont">Creeaza cont</button>
+      <button id="btn-login" class="sec">Autentificare</button>
+    </section>
+    <section>
+      <h2>Cursuri</h2>
+      <button id="btn-cursuri" disabled>Incarca cursurile</button>
+      <div id="cursuri" class="gol">niciun curs incarcat</div>
+    </section>
+    <section>
+      <h2>Raspuns brut</h2>
+      <pre id="brut">nimic inca</pre>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
